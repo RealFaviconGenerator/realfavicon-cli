@@ -1,0 +1,26 @@
+{
+  "name": "realfavicon",
+  "version": "0.0.1",
+  "description": "Generate of check favicon with RealFaviconGenerator from the CLI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RealFaviconGenerator/realfavicon-cli.git"
+  },
+  "keywords": [
+    "favicon",
+    "RealFaviconGenerator",
+    "CLI",
+    "check",
+    "generate"
+  ],
+  "author": "Philippe Bernard",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RealFaviconGenerator/realfavicon-cli/issues"
+  },
+  "homepage": "https://github.com/RealFaviconGenerator/realfavicon-cli#readme"
+}
