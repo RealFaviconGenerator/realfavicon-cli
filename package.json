@@ -2,9 +2,12 @@
   "name": "realfavicon",
   "version": "0.0.1",
   "description": "Generate of check favicon with RealFaviconGenerator from the CLI",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "bin": "./dist/index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -m nodenext"
   },
   "repository": {
     "type": "git",
@@ -22,5 +25,11 @@
   "bugs": {
     "url": "https://github.com/RealFaviconGenerator/realfavicon-cli/issues"
   },
-  "homepage": "https://github.com/RealFaviconGenerator/realfavicon-cli#readme"
+  "homepage": "https://github.com/RealFaviconGenerator/realfavicon-cli#readme",
+  "devDependencies": {
+    "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "@types/node": "^20.12.2"
+  }
 }
