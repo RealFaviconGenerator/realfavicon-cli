@@ -1,4 +1,4 @@
-import { CheckerMessage, CheckerStatus, checkDesktopFavicon, checkTouchIcon, checkWebManifest } from "@realfavicongenerator/check-favicon";
+import { CheckerMessage, CheckerStatus, checkFavicon } from "@realfavicongenerator/check-favicon";
 import { parse } from 'node-html-parser'
 
 export const getUrl = (urlOrPort: string): string => {
@@ -32,19 +32,17 @@ export const check = async (urlOrPort: string) => {
   const root = parse(html);
   const head = root.querySelector('head');
 
-  const desktopReport = await checkDesktopFavicon(url, head);
-  const touchReport = await checkTouchIcon(url, head);
-  const webManifestReport = await checkWebManifest(url, head);
+  const report = await checkFavicon(url, head);
 
   console.log();
   console.log("Desktop");
-  printMessages(desktopReport.messages);
+  printMessages(report.desktop.messages);
 
   console.log();
   console.log("Touch");
-  printMessages(touchReport.messages);
+  printMessages(report.touchIcon.messages);
 
   console.log();
   console.log("Web Manifest");
-  printMessages(webManifestReport.messages);
+  printMessages(report.webAppManifest.messages);
 }
