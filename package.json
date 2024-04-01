@@ -1,10 +1,10 @@
 {
   "name": "realfavicon",
   "version": "0.0.1",
-  "description": "Generate of check favicon with RealFaviconGenerator from the CLI",
+  "description": "Check favicon with RealFaviconGenerator from the CLI",
   "main": "dist/index.js",
   "bin": "./dist/index.js",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "build": "tsc"
@@ -17,8 +17,7 @@
     "favicon",
     "RealFaviconGenerator",
     "CLI",
-    "check",
-    "generate"
+    "check"
   ],
   "author": "Philippe Bernard",
   "license": "ISC",
@@ -37,6 +36,7 @@
     "@realfavicongenerator/check-favicon": "^0.1.0",
     "@types/node": "^20.12.2",
     "commander": "^12.0.0",
-    "node-html-parser": "^6.1.13"
+    "node-html-parser": "^6.1.13",
+    "open": "^10.1.0"
   }
 }

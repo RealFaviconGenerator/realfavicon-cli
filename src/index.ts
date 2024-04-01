@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const { Command } = require('commander');
-const { CheckExamples } = require('./example');
-const { check } = require('./check');
+import { Command } from 'commander'
+import { CheckExamples } from '@/example'
+import { check, stringToScreen } from '@/check'
 
 const program = new Command();
 
@@ -14,9 +14,10 @@ program
 program.command('check')
   .description('Check a favicon')
   .argument('<URL or port>', 'the URL to check, or simply a port to target localhost')
+  .option('-s, --screen <scree>', 'the screen where the report is displayed, can be cli or realfavicon', 'realfavicon')
   .addHelpText('after', CheckExamples)
-  .action(async (urlOrPort: string) => {
-    await check(urlOrPort);
+  .action(async (urlOrPort: string, screen: string) => {
+    await check(urlOrPort, stringToScreen(screen));
   });
 
 program.parse();

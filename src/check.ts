@@ -1,5 +1,6 @@
-import { CheckerMessage, CheckerStatus, checkFavicon } from "@realfavicongenerator/check-favicon";
+import { CheckerMessage, CheckerStatus, FaviconReport, checkFavicon } from "@realfavicongenerator/check-favicon";
 import { parse } from 'node-html-parser'
+import open from 'open'
 
 export const getUrl = (urlOrPort: string): string => {
   if (urlOrPort.match(/^\d+$/)) return `http://localhost:${urlOrPort}`;
@@ -25,15 +26,19 @@ const printMessages = (report: CheckerMessage[], indentation = 2) => {
   });
 }
 
-export const check = async (urlOrPort: string) => {
-  const url = getUrl(urlOrPort);
-  const response = await fetch(url);
-  const html = await response.text();
-  const root = parse(html);
-  const head = root.querySelector('head');
+enum Screen { Cli, RealFavicon }
 
-  const report = await checkFavicon(url, head);
+export const stringToScreen = (screen: string): Screen => {
+  switch(screen) {
+    case 'cli':
+      return Screen.Cli;
+    default:
+    case 'realfavicon':
+      return Screen.RealFavicon;
+  }
+}
 
+const printCliReport = (report: FaviconReport) => {
   console.log();
   console.log("Desktop");
   printMessages(report.desktop.messages);
@@ -45,4 +50,29 @@ export const check = async (urlOrPort: string) => {
   console.log();
   console.log("Web Manifest");
   printMessages(report.webAppManifest.messages);
+}
+
+export const check = async (urlOrPort: string, screen: Screen) => {
+  const url = getUrl(urlOrPort);
+  console.log(`Check favicon at ${url}`);
+
+  const response = await fetch(url);
+  const html = await response.text();
+  const root = parse(html);
+  const head = root.querySelector('head');
+
+  const report = await checkFavicon(url, head);
+
+  switch(screen) {
+    case Screen.Cli:
+      printCliReport(report);
+      break;
+    case Screen.RealFavicon:
+      const result = await fetch('http://localhost:3000/api/check/report', { method: 'POST', body: JSON.stringify(report)});
+      const json = await result.json();
+      const reportUrl = `http://localhost:3000/checker/${json.id}`;
+      console.log(`Open report at ${reportUrl}`);
+      await open(reportUrl);
+      break;
+  }
 }
