@@ -1,11 +1,7 @@
 import { CheckerMessage, CheckerStatus, FaviconReport, checkFavicon } from "@realfavicongenerator/check-favicon";
 import { parse } from 'node-html-parser'
+import { getUrl } from '@/helper'
 import open from 'open'
-
-export const getUrl = (urlOrPort: string): string => {
-  if (urlOrPort.match(/^\d+$/)) return `http://localhost:${urlOrPort}`;
-  return urlOrPort;
-}
 
 const statusToIcon = (status: CheckerStatus): string => {
   switch(status) {

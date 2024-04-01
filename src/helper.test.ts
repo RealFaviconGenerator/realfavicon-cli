@@ -1,4 +1,4 @@
-const { getUrl } = require('./check');
+import { getUrl } from '@/helper'
 
 test('getUrl', () => {
   expect(getUrl('https://example.com')).toBe('https://example.com');
