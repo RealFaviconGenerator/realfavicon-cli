@@ -58,15 +58,16 @@ export const check = async (urlOrPort: string, screen: Screen) => {
   const head = root.querySelector('head');
 
   const report = await checkFavicon(url, head);
+  console.log('Check completed');
 
   switch(screen) {
     case Screen.Cli:
       printCliReport(report);
       break;
     case Screen.RealFavicon:
-      const result = await fetch('http://localhost:3000/api/check/report', { method: 'POST', body: JSON.stringify(report)});
+      const result = await fetch('https://next.realfavicongenerator.net/api/check/report', { method: 'POST', body: JSON.stringify(report)});
       const json = await result.json();
-      const reportUrl = `http://localhost:3000/checker/${json.id}`;
+      const reportUrl = `https://next.realfavicongenerator.net/checker/${json.id}`;
       console.log(`Open report at ${reportUrl}`);
       await open(reportUrl);
       break;
