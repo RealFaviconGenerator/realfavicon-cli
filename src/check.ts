@@ -3,6 +3,8 @@ import { parse } from 'node-html-parser'
 import { getUrl } from '@/helper'
 import open from 'open'
 
+const RealFaviconGeneratorBaseUrl = 'https://next.realfavicongenerator.net/';
+
 const statusToIcon = (status: CheckerStatus): string => {
   switch(status) {
     case CheckerStatus.Error:
@@ -65,9 +67,9 @@ export const check = async (urlOrPort: string, screen: Screen) => {
       printCliReport(report);
       break;
     case Screen.RealFavicon:
-      const result = await fetch('https://next.realfavicongenerator.net/api/check/report', { method: 'POST', body: JSON.stringify(report)});
+      const result = await fetch(`${RealFaviconGeneratorBaseUrl}api/check/report`, { method: 'POST', body: JSON.stringify(report)});
       const json = await result.json();
-      const reportUrl = `https://next.realfavicongenerator.net/checker/${json.id}`;
+      const reportUrl = `${RealFaviconGeneratorBaseUrl}checker/${json.id}`;
       console.log(`Open report at ${reportUrl}`);
       await open(reportUrl);
       break;
